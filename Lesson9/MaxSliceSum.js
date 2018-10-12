@@ -17,24 +17,14 @@ function solution(A) {
         return sum;
     }
 
+    let localMax = A[0];
+    let totalSum = A[0];
 
-    let maxSum = A[0];
-
-    for(let i=0; i<A.length; i++){
-        let sum = A[i];
-
-        if(sum > maxSum){
-            maxSum = sum;
-        }
-
-        for(let j=i+1; j<A.length; j++){
-            sum = sum + A[j];
-
-            if(sum > maxSum){
-                maxSum = sum;
-            }
-        }
+    for (let i=1; i<A.length; i++) {
+        let nextSum = localMax+A[i];
+        localMax = Math.max(A[i], nextSum);
+        totalSum = Math.max(totalSum, localMax);
     }
 
-    return maxSum;
+    return totalSum;
 }
