@@ -13,8 +13,8 @@ function solution(A) {
         }
     }
 
-    if(peak.length < 1){
-        return 0;
+    if(peak.length < 2){
+        return peak.length;
     }
 
     let maxBlock = 1;
@@ -24,35 +24,29 @@ function solution(A) {
             continue;
         }
 
-        let blockRange = len/(i);
-        let blockStartNum = 0;
-        let blockEndNum = 1;
-
+        let blockRange = len/i;
+        let blockStart = 0;
+        let blockEnd = 1;
+        let index = 0;
         let check = false;
-        for(let j=0; j<peak.length; j++){
 
-            let peakIdx = peak[j];
+        for(let j=0; j<i; j++){
+            blockStart = j * blockRange;
+            blockEnd = (j+1) * blockRange;
+            check = false;
 
-            if(peakIdx < (blockRange*blockStartNum)){
-                if(j === peak.length-1){
-                    check = true;
-                    break;
-                }
-
-                continue;
+            while(index < peak.length && blockStart <= peak[index] && peak[index] < blockEnd){
+                check = true;
+                ++index;
             }
 
-            if(peakIdx < (blockRange*blockEndNum)){
-                blockStartNum++;
-                blockEndNum++;
-            }else{
-                check = true;
+            if(!check){
                 break;
             }
         }
 
-        if(!check){
-            maxBlock = len/blockRange;
+        if(check){
+            maxBlock = i;
         }
     }
 
