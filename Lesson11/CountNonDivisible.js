@@ -1,31 +1,40 @@
 function solution(A) {
     // write your code in JavaScript (Node.js 8.9.4)
 
-    let cntArr = [];
+    let N = A.length;
+    let count = [];
+    let divisor = [];
 
-    for(let i=0; i<A.length; i++){
-        let num = A[i];
-        let divArr = [];
+    for(let i=0; i<N*2+1; i++){
+        count.push(0);
+        divisor.push(0);
+    }
 
-        for(let j=1; j*j<=num; j++){
-            if(num%j === 0){
-                divArr.push(j);
+    for(let i=0; i<N; i++){
+        let idx = A[i];
+        count[idx] += 1;
+    }
 
-                if(j !== num/j){
-                    divArr.push(num/j);
+    for(let i=1; i<divisor.length; i++){
+        let number = i;
+
+        for(let j=1; j*j<=number; j++){
+
+            if(number%j === 0){
+                divisor[number] += count[j];
+
+                if(j !== number/j){
+                    divisor[number] += count[number/j];
                 }
             }
         }
-
-        let diffArr = diff(A, divArr);
-        cntArr.push(diffArr.length);
     }
 
-    return cntArr;
-}
+    let result = [];
+    for(let i=0; i<N; i++){
+        let idx = A[i];
+        result[i] = N - divisor[idx];
+    }
 
-function diff(array1, array2){
-    return  array1.filter((i) =>{
-        return array2.indexOf(i) < 0;
-    });
+    return result;
 }
