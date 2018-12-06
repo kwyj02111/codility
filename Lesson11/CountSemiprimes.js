@@ -14,21 +14,21 @@ function solution(N, P, Q) {
         count.push(0);
     }
 
-    let startIdx = 0;
-    let nextIdx = 0;
-    for(let i=1; i<semiprime.length; i++){
-        startIdx = semiprime[i-1];
-        nextIdx = semiprime[i];
+    for(let i=0; i<semiprime.length; i++){
+
+        let startIdx = semiprime[i];
+        let nextIdx = 0;
+
+        if(i !== semiprime.length-1){
+            nextIdx = semiprime[i+1];
+        }else{
+            nextIdx = count.length;
+        }
 
         while(startIdx < nextIdx){
-            count[startIdx] = i;
+            count[startIdx] = i+1;
             startIdx += 1;
         }
-    }
-
-    while(nextIdx <= count.length-1){
-        count[nextIdx] = semiprime.length;
-        nextIdx += 1;
     }
 
     for(let i=0; i<P.length; i++){
