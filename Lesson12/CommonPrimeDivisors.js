@@ -16,16 +16,8 @@ function solution(A, B) {
             continue;
         }
 
-        let lcmValue = lcm(A[i], B[i]);
-        let rest = lcmValue/gcdValue;
-        let gcd_restAndGcd = 0;
-
-        while( gcd_restAndGcd !== 1) {
-            gcd_restAndGcd = gcd(gcdValue, rest);
-            rest = rest/gcd_restAndGcd ;
-        }
-
-        if(rest === 1){
+        let check = sameCheck(gcdValue, A[i], B[i]);
+        if(check){
             cnt += 1;
         }
     }
@@ -37,6 +29,24 @@ function gcd(a, b){
   return a % b ? gcd(b, a%b) : b
 }
 
-function lcm(a, b){
-  return a * b / gcd(a, b);
+function sameCheck(gcdValue, a, b){
+
+    let gcdA = 0;
+    let gcdB = 0;
+
+    while(gcdA !== 1){
+        gcdA = gcd(a, gcdValue);
+        a = a/gcdA;
+    }
+
+    while(gcdB !== 1){
+        gcdB = gcd(b, gcdValue);
+        b = b/gcdB;
+    }
+
+    if(a === 1 && b === 1){
+        return true;
+    }else{
+        return false;
+    }
 }
