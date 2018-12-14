@@ -2,27 +2,28 @@ function solution(M, A) {
     // write your code in JavaScript (Node.js 8.9.4)
 
     let numCheck = [];
-    for(let i=0; i<=M; i++){
-        numCheck.push(false);
-    }
+    let cnt = 0;
 
-    let cnt = A.length;
-
-    for(let i=0; i<A.length-1; i++){
+    for(let i=0; i<A.length; i++){
         let num = A[i];
         let compareIdx = i+1;
         let compareNum = A[compareIdx];
 
         numCheck[num] = true;
 
-        while(!numCheck[compareNum] && compareIdx < A.length){
-            cnt += 1;
+        while(numCheck[compareNum] === undefined && compareIdx < A.length){
             numCheck[compareNum] = true;
             compareIdx += 1;
             compareNum = A[compareIdx];
         }
 
-        numCheck.fill(false);
+        cnt += compareIdx - i;
+
+        if(cnt > 1000000000){
+            return 1000000000;
+        }
+
+        numCheck = [];
     }
 
     return cnt;
