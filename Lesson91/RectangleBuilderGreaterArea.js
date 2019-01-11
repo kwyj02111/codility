@@ -3,6 +3,8 @@ function solution(A, X) {
 
     let cnt = 0;
     let numCheck = [];
+    let twoOrMore = [];
+    let fourOrMore = [];
 
     for(let i=0; i<A.length; i++){
         let val = A[i];
@@ -12,20 +14,13 @@ function solution(A, X) {
         }else{
             numCheck[val] += 1;
         }
-    }
 
-    let twoOrMore = [];
-    let fourOrMore = [];
-
-    for(let i=0; i<numCheck.length; i++){
-        let value = numCheck[i];
-
-        if(value > 1){
-            twoOrMore.unshift(i);
+        if(numCheck[val] === 2){
+            twoOrMore.push(val);
         }
 
-        if(value > 3){
-            fourOrMore.unshift(i);
+        if(numCheck[val] === 4){
+            fourOrMore.push(val);
         }
     }
 
@@ -33,13 +28,21 @@ function solution(A, X) {
         return 0;
     }
 
+    twoOrMore = twoOrMore.sort((a, b) => {
+        return b - a;
+    });
+
+    fourOrMore = fourOrMore.sort((a, b) => {
+        return b - a;
+    });
+
     for(let i=0; i<twoOrMore.length-1; i++){
         let standard = twoOrMore[i];
         let nextIdx = i+1;
+        let portion = Math.ceil(X / standard);
 
         while(nextIdx < twoOrMore.length){
-            let area = standard * twoOrMore[nextIdx];
-            if(area < X){
+            if(twoOrMore[nextIdx] < portion){
                 break;
             }
 
@@ -49,8 +52,8 @@ function solution(A, X) {
     }
 
     for(let i=0; i<fourOrMore.length; i++){
-        let area = fourOrMore[i] * fourOrMore[i];
-        if(area < X){
+        let portion = Math.ceil(X / fourOrMore[i]);
+        if(fourOrMore[i] < portion){
             break;
         }
 
