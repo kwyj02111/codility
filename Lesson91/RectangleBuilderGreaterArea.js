@@ -29,35 +29,42 @@ function solution(A, X) {
     }
 
     twoOrMore = twoOrMore.sort((a, b) => {
-        return b - a;
+        return a - b;
     });
 
     fourOrMore = fourOrMore.sort((a, b) => {
-        return b - a;
+        return a - b;
     });
 
     for(let i=0; i<twoOrMore.length-1; i++){
         let standard = twoOrMore[i];
         let nextIdx = i+1;
+        let restNum = 0;
+
+        if(standard >= X){
+            restNum = twoOrMore.length-i-1;
+            cnt += restNum;
+            continue;
+        }
+
         let portion = Math.ceil(X / standard);
 
-        while(nextIdx < twoOrMore.length){
-            if(twoOrMore[nextIdx] < portion){
-                break;
-            }
-
+        while(nextIdx < twoOrMore.length && twoOrMore[nextIdx] < portion){
             nextIdx += 1;
-            cnt += 1;
         }
+
+        restNum = twoOrMore.length-nextIdx;
+        cnt += restNum;
     }
 
     for(let i=0; i<fourOrMore.length; i++){
         let portion = Math.ceil(X / fourOrMore[i]);
-        if(fourOrMore[i] < portion){
+
+        if(fourOrMore[i] >= portion){
+            let restNum = fourOrMore.length-i;
+            cnt += restNum;
             break;
         }
-
-        cnt += 1;
     }
 
     if(cnt > 1000000000){
