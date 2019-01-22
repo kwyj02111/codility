@@ -5,6 +5,14 @@ function solution(N, S, T) {
     let barrel = S.split(' ');
     let occupied = T.split(' ');
 
+    if(S.length < 1){
+        barrel = [];
+    }
+
+    if(T.length < 1){
+        occupied = [];
+    }
+
     let leftFront = half*half;
     let leftBack = half*half;
     let rightFront = half*half;
