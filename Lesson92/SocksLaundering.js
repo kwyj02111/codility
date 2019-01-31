@@ -15,14 +15,24 @@ function solution(K, C, D) {
         }
     }
 
+    let copyD = D;
+    copyD = copyD.slice(0);
+
     if(sockArray.length > 0){
-        for(let i=0; i<D.length; i++){
-            let findIndex = sockArray.indexOf(D[i]);
+        for(let i=0; i<copyD.length; i++){
+            let findIndex = sockArray.indexOf(copyD[i]);
 
             if(findIndex >= 0){
                 sockArray.splice(findIndex,1);
                 maxSocks += 1;
                 K -= 1;
+
+                let idx = D.indexOf(copyD[i]);
+                D.splice(idx,1);
+            }
+
+            if(sockArray.length < 1){
+                break;
             }
 
             if(K === 0){
