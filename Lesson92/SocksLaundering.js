@@ -18,7 +18,7 @@ function solution(K, C, D) {
     let copyD = D;
     copyD = copyD.slice(0);
 
-    if(sockArray.length > 0){
+    if(sockArray.length > 0 && K > 0){
         for(let i=0; i<copyD.length; i++){
             let findIndex = sockArray.indexOf(copyD[i]);
 
