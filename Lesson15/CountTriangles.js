@@ -2,7 +2,7 @@ function solution(A) {
     // write your code in JavaScript (Node.js 8.9.4)
 
     let count = 0;
-    let sortA = A.sort(function(a, b) {
+    let sortA = A.sort((a, b) => {
         return a - b;
     });
 
@@ -27,7 +27,7 @@ function solution(A) {
                 let middle = sortA[middleIdx];
                 let last = sortA[lastIdx];
 
-                if(middle + last <= first || first + last <= middle){
+                if(middle + last <= first || first + last <= middle || first + middle <= last){
                     break;
                 }
 
