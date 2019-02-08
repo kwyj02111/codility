@@ -15,27 +15,20 @@ function solution(A) {
         let middleIdx = i+1;
         let lastIdx = i+2;
 
-        if(first + sortA[middleIdx] <= sortA[lastIdx]){
-            continue;
-        }
-
-        while(middleIdx < sortA.length-1){
-
-            lastIdx = middleIdx + 1;
-
-            while(lastIdx < sortA.length){
-                let middle = sortA[middleIdx];
-                let last = sortA[lastIdx];
-
-                if(middle + last <= first || first + last <= middle || first + middle <= last){
-                    break;
-                }
-
+        while(lastIdx < sortA.length){
+            if(first + A[middleIdx] > A[lastIdx]){
                 count += 1;
                 lastIdx += 1;
+
+                if(lastIdx === sortA.length){
+                    middleIdx += 1;
+                    lastIdx = middleIdx + 1;
+                }
+                continue;
             }
 
             middleIdx += 1;
+            lastIdx = middleIdx + 1;
         }
     }
 
